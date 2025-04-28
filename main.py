@@ -249,3 +249,107 @@ def delete_traveler():
 
     print(f"Traveler with ID {traveler_id} not found.")
 
+# Trip leg management functions
+
+def create_trip_leg():
+    """Create a new trip leg"""
+    print("\n=== Create New Trip Leg ===")
+
+    trip_id = get_input("Trip ID: ")
+
+    # Check if trip exists
+    trip_exists = False
+    for trip in trips:
+        if trip['id'] == trip_id:
+            trip_exists = True
+            break
+
+    if not trip_exists:
+        print(f"Trip with ID {trip_id} not found.")
+        return
+
+    leg = {
+        "id": str(uuid.uuid4())[:8],  # Generate a short unique ID
+        "trip_id": trip_id,
+        "start_location": get_input("Starting Location: "),
+        "destination": get_input("Destination: "),
+        "transport_provider": get_input("Transport Provider: "),
+        "transport_mode": get_input("Mode of Transport: "),
+        "leg_type": get_input("Leg Type (accommodation/poi/transfer): "),
+        "cost": get_int_input("Cost: ")
+    }
+
+    trip_legs.append(leg)
+
+    # Add leg reference to trip
+    for trip in trips:
+        if trip['id'] == trip_id:
+            trip['legs'].append(leg['id'])
+
+    print(f"Trip leg created successfully with ID: {leg['id']}")
+
+
+def view_trip_legs():
+    """Display all trip legs"""
+    print("\n=== All Trip Legs ===")
+
+    if not trip_legs:
+        print("No trip legs found.")
+        return
+
+    for leg in trip_legs:
+        print(f"ID: {leg['id']}")
+        print(f"Trip ID: {leg['trip_id']}")
+        print(f"Route: {leg['start_location']} to {leg['destination']}")
+        print(f"Transport: {leg['transport_mode']} by {leg['transport_provider']}")
+        print(f"Type: {leg['leg_type']}")
+        print(f"Cost: ${leg['cost']}")
+        print("-" * 30)
+
+
+def update_trip_leg():
+    """Update an existing trip leg"""
+    leg_id = get_input("\nEnter Trip Leg ID to update: ")
+
+    for leg in trip_legs:
+        if leg['id'] == leg_id:
+            print(f"Updating Trip Leg: {leg['start_location']} to {leg['destination']}")
+
+            leg['start_location'] = get_input(f"Starting Location [{leg['start_location']}]: ", True) or leg[
+                'start_location']
+            leg['destination'] = get_input(f"Destination [{leg['destination']}]: ", True) or leg['destination']
+            leg['transport_provider'] = get_input(f"Transport Provider [{leg['transport_provider']}]: ", True) or leg[
+                'transport_provider']
+            leg['transport_mode'] = get_input(f"Mode of Transport [{leg['transport_mode']}]: ", True) or leg[
+                'transport_mode']
+            leg['leg_type'] = get_input(f"Leg Type [{leg['leg_type']}]: ", True) or leg['leg_type']
+
+            cost_str = get_input(f"Cost [${leg['cost']}]: ", True)
+            if cost_str:
+                try:
+                    leg['cost'] = int(cost_str)
+                except:
+                    print("Invalid number. Cost not updated.")
+
+            print("Trip leg updated successfully")
+            return
+
+    print(f"Trip leg with ID {leg_id} not found.")
+
+
+def delete_trip_leg():
+    """Delete a trip leg"""
+    leg_id = get_input("\nEnter Trip Leg ID to delete: ")
+
+    for i, leg in enumerate(trip_legs):
+        if leg['id'] == leg_id:
+            # Remove leg reference from trip
+            for trip in trips:
+                if trip['id'] == leg['trip_id'] and leg['id'] in trip['legs']:
+                    trip['legs'].remove(leg['id'])
+
+            del trip_legs[i]
+            print(f"Trip leg deleted successfully")
+            return
+
+    print(f"Trip leg with ID {leg_id} not found.")
