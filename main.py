@@ -662,5 +662,358 @@ def generate_trip_performance_report():
             print(f"Could not generate chart: {e}")
             print("Make sure matplotlib is installed or use 'pip install matplotlib'")
 
+# Menu functions
+def reporting_menu():
+    """
+    Display the reporting and analytics menu.
+    Allows the user to generate various reports or return to the main menu.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Reporting and Analytics ===")
+        print("1. Financial Report")  # Option to generate a financial report
+        print("2. Traveler Statistics")  # Option to generate traveler statistics
+        print("3. Trip Performance Report")  # Option to generate trip performance metrics
+        print("4. Back to Main Menu")  # Option to return to the main menu
 
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            generate_financial_report()  # Call function to generate financial report
+        elif choice == "2":
+            generate_traveler_report()  # Call function to generate traveler statistics
+        elif choice == "3":
+            generate_trip_performance_report()  # Call function to generate trip performance metrics
+        elif choice == "4":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def display_main_menu():
+    """
+    Display the main menu options for the travel management system.
+    Provides access to various management and reporting functions.
+    """
+    print("\n=== Travel Management System ===")
+    print("1. Trip Management")  # Access trip management functions
+    print("2. Traveler Management")  # Access traveler management functions
+    print("3. Trip Leg Management")  # Access trip leg management functions
+    print("4. Trip Coordinator Functions")  # Access trip coordinator functions
+    print("5. Trip Manager Functions")  # Access trip manager functions
+    print("6. Administrator Functions")  # Access administrator functions
+    print("7. Reporting and Analytics")  # Access reporting and analytics functions
+    print("8. Exit")  # Exit the program
+
+
+def trip_management_menu():
+    """
+    Display the trip management menu.
+    Allows the user to create, view, update, or delete trips, or return to the main menu.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Trip Management ===")
+        print("1. Create Trip")  # Option to create a new trip
+        print("2. View All Trips")  # Option to view all trips
+        print("3. Update Trip")  # Option to update an existing trip
+        print("4. Delete Trip")  # Option to delete a trip
+        print("5. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            create_trip()  # Call function to create a new trip
+        elif choice == "2":
+            view_trips()  # Call function to view all trips
+        elif choice == "3":
+            update_trip()  # Call function to update an existing trip
+        elif choice == "4":
+            delete_trip()  # Call function to delete a trip
+        elif choice == "5":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def traveler_management_menu():
+    """
+    Display the traveler management menu.
+    Allows the user to create, view, update, or delete travelers, or return to the main menu.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Traveler Management ===")
+        print("1. Create Traveler")  # Option to create a new traveler
+        print("2. View All Travelers")  # Option to view all travelers
+        print("3. Update Traveler")  # Option to update an existing traveler
+        print("4. Delete Traveler")  # Option to delete a traveler
+        print("5. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            create_traveler()  # Call function to create a new traveler
+        elif choice == "2":
+            view_travelers()  # Call function to view all travelers
+        elif choice == "3":
+            update_traveler()  # Call function to update an existing traveler
+        elif choice == "4":
+            delete_traveler()  # Call function to delete a traveler
+        elif choice == "5":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def trip_leg_management_menu():
+    """
+    Display the trip leg management menu.
+    Allows the user to create, view, update, or delete trip legs, or return to the main menu.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Trip Leg Management ===")
+        print("1. Create Trip Leg")  # Option to create a new trip leg
+        print("2. View All Trip Legs")  # Option to view all trip legs
+        print("3. Update Trip Leg")  # Option to update an existing trip leg
+        print("4. Delete Trip Leg")  # Option to delete a trip leg
+        print("5. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            create_trip_leg()  # Call function to create a new trip leg
+        elif choice == "2":
+            view_trip_legs()  # Call function to view all trip legs
+        elif choice == "3":
+            update_trip_leg()  # Call function to update an existing trip leg
+        elif choice == "4":
+            delete_trip_leg()  # Call function to delete a trip leg
+        elif choice == "5":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def trip_coordinator_menu():
+    """
+    Display the trip coordinator menu.
+    Allows the user to manage trip travelers, generate itineraries, or return to the main menu.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Trip Coordinator Functions ===")
+        print("1. Manage Trip Travelers")  # Option to manage travelers for a trip
+        print("2. Generate Trip Itinerary")  # Option to generate a trip itinerary
+        print("3. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            manage_trip_travelers()  # Call function to manage trip travelers
+        elif choice == "2":
+            generate_itinerary()  # Call function to generate a trip itinerary
+        elif choice == "3":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def trip_manager_menu():
+    """
+    Display the trip manager menu.
+    Allows the user to manage trip coordinators or access coordinator functions.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Trip Manager Functions ===")
+        print("1. Create Trip Coordinator")  # Option to create a new trip coordinator
+        print("2. View Trip Coordinators")  # Option to view all trip coordinators
+        print("3. Delete Trip Coordinator")  # Option to delete a trip coordinator
+        print("4. Access Trip Coordinator Functions")  # Option to access coordinator functions
+        print("5. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            # Create a new trip coordinator
+            print("\n=== Create New Trip Coordinator ===")
+            user = {
+                "id": str(uuid.uuid4())[:8],  # Generate a short unique ID
+                "username": get_input("Username: "),  # Get username
+                "password": get_input("Password: "),  # Get password
+                "role": "coordinator"  # Assign role as coordinator
+            }
+            users.append(user)  # Add the new user to the users list
+            print(f"Trip Coordinator '{user['username']}' created successfully with ID: {user['id']}")
+
+        elif choice == "2":
+            # View all trip coordinators
+            print("\n=== Trip Coordinators ===")
+            coordinators = [user for user in users if user['role'] == 'coordinator']  # Filter coordinators
+            if not coordinators:
+                print("No trip coordinators found.")  # Handle no coordinators
+            else:
+                for user in coordinators:
+                    print(f"ID: {user['id']}")
+                    print(f"Username: {user['username']}")
+                    print("-" * 30)
+
+        elif choice == "3":
+            # Delete a trip coordinator
+            user_id = get_input("\nEnter Trip Coordinator ID to delete: ")
+            for i, user in enumerate(users):
+                if user['id'] == user_id and user['role'] == 'coordinator':
+                    username = user['username']
+                    del users[i]  # Remove the user from the list
+                    print(f"Trip Coordinator '{username}' deleted successfully")
+                    break
+            else:
+                print(f"Trip Coordinator with ID {user_id} not found.")  # Handle invalid ID
+
+        elif choice == "4":
+            trip_coordinator_menu()  # Access trip coordinator functions
+
+        elif choice == "5":
+            break  # Exit the menu and return to the main menu
+
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+def admin_menu():
+    """
+    Display the administrator menu.
+    Allows the user to manage users or access trip manager functions.
+    """
+    while True:
+        # Display menu options
+        print("\n=== Administrator Functions ===")
+        print("1. Create User (Coordinator/Manager)")  # Option to create a new user
+        print("2. View All Users")  # Option to view all users
+        print("3. Delete User")  # Option to delete a user
+        print("4. Access Trip Manager Functions")  # Option to access trip manager functions
+        print("5. Back to Main Menu")  # Option to return to the main menu
+
+        # Get user input
+        choice = get_input("\nEnter your choice: ")
+
+        # Handle user input
+        if choice == "1":
+            create_user()  # Call function to create a new user
+        elif choice == "2":
+            view_users()  # Call function to view all users
+        elif choice == "3":
+            delete_user()  # Call function to delete a user
+        elif choice == "4":
+            trip_manager_menu()  # Access trip manager functions
+        elif choice == "5":
+            break  # Exit the menu and return to the main menu
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid input
+
+
+# Login system
+def login():
+    """
+    User login function.
+    Prompts the user for a username and password, checks the credentials against the `users` list,
+    and returns the user object if authentication is successful.
+    """
+    print("\n=== Login ===")
+    username = get_input("Username: ")  # Prompt the user to enter their username
+    password = get_input("Password: ")  # Prompt the user to enter their password
+
+    # Iterate through the list of users to find a matching username and password
+    for user in users:
+        if user['username'] == username and user['password'] == password:
+            print(f"Welcome, {username}!")  # Display a welcome message for the authenticated user
+            return user  # Return the authenticated user object
+
+    # If no match is found, display an error message
+    print("Invalid username or password.")
+    return None  # Return None to indicate failed login
+
+
+# Main function
+def main():
+    """
+    Main function to run the program.
+    Handles user authentication and provides access to various system menus based on the user's role.
+    """
+    print("Welcome to the Simple Travel Management System")  # Display a welcome message
+
+    user = None
+    # Loop until the user successfully logs in
+    while not user:
+        user = login()  # Call the login function to authenticate the user
+
+    role = user['role']  # Retrieve the role of the authenticated user
+
+    # Main program loop
+    while True:
+        display_main_menu()  # Display the main menu options
+        choice = get_input("\nEnter your choice: ")  # Prompt the user to select a menu option
+
+        # Handle the user's menu choice
+        if choice == "1":  # Trip Management
+            trip_management_menu()  # Access the trip management menu
+
+        elif choice == "2":  # Traveler Management
+            traveler_management_menu()  # Access the traveler management menu
+
+        elif choice == "3":  # Trip Leg Management
+            trip_leg_management_menu()  # Access the trip leg management menu
+
+        elif choice == "4":  # Trip Coordinator Functions
+            # Check if the user has the required role to access this menu
+            if role in ["coordinator", "manager", "administrator"]:
+                trip_coordinator_menu()  # Access the trip coordinator menu
+            else:
+                print("Access denied. You need to be a Trip Coordinator or higher.")  # Display an access denied message
+
+        elif choice == "5":  # Trip Manager Functions
+            # Check if the user has the required role to access this menu
+            if role in ["manager", "administrator"]:
+                trip_manager_menu()  # Access the trip manager menu
+            else:
+                print("Access denied. You need to be a Trip Manager or Administrator.")  # Display an access denied message
+
+        elif choice == "6":  # Administrator Functions
+            # Check if the user has the required role to access this menu
+            if role == "administrator":
+                admin_menu()  # Access the administrator menu
+            else:
+                print("Access denied. You need to be an Administrator.")  # Display an access denied message
+
+        elif choice == "7":  # Reporting and Analytics
+            # Check if the user has the required role to access this menu
+            if role in ["manager", "administrator"]:
+                reporting_menu()  # Access the reporting and analytics menu
+            else:
+                print("Access denied. You need to be a Trip Manager or Administrator.")  # Display an access denied message
+
+        elif choice == "8":  # Exit
+            print("Thank you for using the Travel Management System. Goodbye!")  # Display a goodbye message
+            break  # Exit the program loop
+
+        else:
+            print("Invalid choice. Please try again.")  # Handle invalid menu input
+
+# Entry point of the program
+if __name__ == "__main__":
+    main()  # Call the main function to start the program
 
