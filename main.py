@@ -353,3 +353,61 @@ def delete_trip_leg():
             return
 
     print(f"Trip leg with ID {leg_id} not found.")
+
+# User management functions
+
+def create_user():
+    """Create a new user (coordinator/manager/admin)"""
+    print("\n=== Create New User ===")
+
+    role = ""
+    while role not in ["coordinator", "manager", "administrator"]:
+        role = get_input("Role (coordinator/manager/administrator): ").lower()
+        if role not in ["coordinator", "manager", "administrator"]:
+            print("Invalid role. Please enter coordinator, manager, or administrator.")
+
+    user = {
+        "id": str(uuid.uuid4())[:8],  # Generate a short unique ID
+        "username": get_input("Username: "),
+        "password": get_input("Password: "),
+        "role": role
+    }
+
+    users.append(user)
+    print(f"{role.capitalize()} '{user['username']}' created successfully with ID: {user['id']}")
+
+
+def view_users():
+    """Display all users"""
+    print("\n=== All Users ===")
+
+    if len(users) <= 1:  # Don't count the default admin
+        print("No users found.")
+        return
+
+    for user in users:
+        print(f"ID: {user['id']}")
+        print(f"Username: {user['username']}")
+        print(f"Role: {user['role']}")
+        print("-" * 30)
+
+
+def delete_user():
+    """Delete a user"""
+    user_id = get_input("\nEnter User ID to delete: ")
+
+    # Prevent deleting the default admin
+    if user_id == "admin1":
+        print("Cannot delete the default administrator.")
+        return
+
+    for i, user in enumerate(users):
+        if user['id'] == user_id:
+            username = user['username']
+            del users[i]
+            print(f"User '{username}' deleted successfully")
+            return
+
+    print(f"User with ID {user_id} not found.")
+
+
