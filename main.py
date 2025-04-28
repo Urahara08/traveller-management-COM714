@@ -1,3 +1,12 @@
+# Simple Travel Management System
+# A basic console application for managing trips and travelers
+
+import datetime  # For handling dates
+import uuid  # For generating unique IDs
+import os  # For clearing the console screen
+import matplotlib.pyplot as plt  # For creating visualizations
+from collections import Counter  # For counting occurrences of items (e.g., transport modes)
+
 # Data storage (using simple lists instead of a database)
 # `trips` stores details of all trips
 # `travelers` stores details of all travelers
