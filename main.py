@@ -410,4 +410,117 @@ def delete_user():
 
     print(f"User with ID {user_id} not found.")
 
+# Trip coordinator functions
+def manage_trip_travelers():
+    """
+    Add or remove travelers from a trip.
+    Allows the user to manage the list of travelers associated with a specific trip.
+    """
+    trip_id = get_input("\nEnter Trip ID: ")  # Prompt the user to enter the Trip ID
+
+    # Find the trip by ID
+    trip = None
+    for t in trips:
+        if t['id'] == trip_id:  # Check if the trip ID matches
+            trip = t
+            break
+
+    if not trip:  # If the trip is not found, display an error message
+        print(f"Trip with ID {trip_id} not found.")
+        return
+
+    print(f"\nManaging travelers for trip: {trip['name']}")  # Display the trip name
+
+    while True:
+        # Display menu options for managing travelers
+        print("\n1. Add traveler to trip")
+        print("2. Remove traveler from trip")
+        print("3. View travelers on trip")
+        print("4. Back to main menu")
+
+        choice = get_input("\nEnter your choice: ")  # Get the user's choice
+
+        if choice == "1":  # Add a traveler to the trip
+            traveler_id = get_input("Enter Traveler ID to add: ")  # Prompt for Traveler ID
+
+            # Check if the traveler exists
+            traveler_exists = False
+            for traveler in travelers:
+                if traveler['id'] == traveler_id:  # Check if the traveler ID matches
+                    traveler_exists = True
+                    break
+
+            if not traveler_exists:  # If the traveler is not found, display an error
+                print(f"Traveler with ID {traveler_id} not found.")
+                continue
+
+            if traveler_id in trip['travelers']:  # Check if the traveler is already on the trip
+                print("Traveler already on this trip.")
+            else:
+                trip['travelers'].append(traveler_id)  # Add the traveler to the trip
+                print("Traveler added to trip successfully.")
+
+        elif choice == "2":  # Remove a traveler from the trip
+            traveler_id = get_input("Enter Traveler ID to remove: ")  # Prompt for Traveler ID
+
+            if traveler_id in trip['travelers']:  # Check if the traveler is on the trip
+                trip['travelers'].remove(traveler_id)  # Remove the traveler from the trip
+                print("Traveler removed from trip successfully.")
+            else:
+                print("Traveler not found on this trip.")  # Display an error if the traveler is not on the trip
+
+        elif choice == "3":  # View all travelers on the trip
+            print("\n=== Travelers on Trip ===")
+            if not trip['travelers']:  # Check if there are no travelers on the trip
+                print("No travelers on this trip.")
+            else:
+                for traveler_id in trip['travelers']:  # Iterate through the list of traveler IDs
+                    for traveler in travelers:
+                        if traveler['id'] == traveler_id:  # Find the traveler by ID
+                            print(f"ID: {traveler['id']}")  # Display traveler ID
+                            print(f"Name: {traveler['name']}")  # Display traveler name
+                            print("-" * 30)  # Separator for readability
+                            break
+
+        elif choice == "4":  # Exit the menu
+            break
+
+        else:  # Handle invalid input
+            print("Invalid choice. Please try again.")
+
+def generate_itinerary():
+    """Generate an itinerary for a trip"""
+    trip_id = get_input("\nEnter Trip ID: ")
+
+    # Find the trip
+    trip = None
+    for t in trips:
+        if t['id'] == trip_id:
+            trip = t
+            break
+
+    if not trip:
+        print(f"Trip with ID {trip_id} not found.")
+        return
+
+    print(f"\n=== Itinerary for {trip['name']} ===")
+    print(f"Start Date: {trip['start_date'].strftime('%d/%m/%Y')}")
+    print(f"Duration: {trip['duration']} days")
+    print(f"Contact: {trip['contact']}")
+
+    # Get trip legs for this trip
+    trip_legs_for_trip = [leg for leg in trip_legs if leg['trip_id'] == trip_id]
+
+    if not trip_legs_for_trip:
+        print("\nNo trip legs defined for this trip.")
+    else:
+        print("\nTrip Legs:")
+        for leg in trip_legs_for_trip:
+            print(f"- {leg['start_location']} to {leg['destination']} ({leg['transport_mode']})")
+            print(f"  Type: {leg['leg_type']}, Cost: ${leg['cost']}")
+
+    # Calculate total cost
+    total_cost = sum(leg['cost'] for leg in trip_legs_for_trip)
+    print(f"\nTotal Trip Cost: ${total_cost}")
+
 
