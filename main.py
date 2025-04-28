@@ -523,4 +523,144 @@ def generate_itinerary():
     total_cost = sum(leg['cost'] for leg in trip_legs_for_trip)
     print(f"\nTotal Trip Cost: ${total_cost}")
 
+# Reporting and analytics functions
+def generate_financial_report():
+    """Generate a financial report showing costs by trip"""
+    print("\n=== Financial Report ===")
+
+    if not trips:
+        print("No trips found.")
+        return
+
+    # Calculate costs for each trip
+    trip_costs = {}
+    for trip in trips:
+        trip_id = trip['id']
+        trip_name = trip['name']
+
+        # Get legs for this trip
+        legs_for_trip = [leg for leg in trip_legs if leg['trip_id'] == trip_id]
+        total_cost = sum(leg['cost'] for leg in legs_for_trip)
+
+        trip_costs[trip_name] = total_cost
+
+    # Display financial report
+    print("\nTrip Costs:")
+    for trip_name, cost in trip_costs.items():
+        print(f"{trip_name}: ${cost}")
+
+    # Calculate total revenue
+    total_revenue = sum(trip_costs.values())
+    print(f"\nTotal Revenue: ${total_revenue}")
+
+    # Create a simple bar chart
+    if trip_costs:
+        try:
+            plt.figure(figsize=(10, 6))
+            plt.bar(trip_costs.keys(), trip_costs.values())
+            plt.title('Trip Costs')
+            plt.xlabel('Trip Name')
+            plt.ylabel('Cost ($)')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig('trip_costs.png')
+            plt.close()
+            print("Chart saved as 'trip_costs.png'")
+        except Exception as e:
+            print(f"Could not generate chart: {e}")
+            print("Make sure matplotlib is installed or use 'pip install matplotlib'")
+
+
+def generate_traveler_report():
+    """Generate a report showing traveler statistics"""
+    print("\n=== Traveler Statistics ===")
+
+    if not travelers:
+        print("No travelers found.")
+        return
+
+    # Count travelers by trip
+    travelers_per_trip = {}
+    for trip in trips:
+        travelers_per_trip[trip['name']] = len(trip['travelers'])
+
+    # Display traveler statistics
+    print("\nNumber of Travelers per Trip:")
+    for trip_name, count in travelers_per_trip.items():
+        print(f"{trip_name}: {count} travelers")
+
+    # Total number of travelers
+    print(f"\nTotal Travelers: {len(travelers)}")
+
+    # Create a simple pie chart
+    if travelers_per_trip:
+        try:
+            plt.figure(figsize=(8, 8))
+            plt.pie(travelers_per_trip.values(), labels=travelers_per_trip.keys(), autopct='%1.1f%%')
+            plt.title('Travelers by Trip')
+            plt.tight_layout()
+            plt.savefig('travelers_by_trip.png')
+            plt.close()
+            print("Chart saved as 'travelers_by_trip.png'")
+        except Exception as e:
+            print(f"Could not generate chart: {e}")
+            print("Make sure matplotlib is installed or use 'pip install matplotlib'")
+
+
+def generate_trip_performance_report():
+    """Generate a report showing trip performance metrics"""
+    print("\n=== Trip Performance Report ===")
+
+    if not trips:
+        print("No trips found.")
+        return
+
+    # Calculate metrics for each trip
+    for trip in trips:
+        trip_id = trip['id']
+        trip_name = trip['name']
+
+        # Get legs for this trip
+        legs_for_trip = [leg for leg in trip_legs if leg['trip_id'] == trip_id]
+
+        # Calculate metrics
+        total_cost = sum(leg['cost'] for leg in legs_for_trip)
+        num_travelers = len(trip['travelers'])
+        num_legs = len(legs_for_trip)
+
+        # Calculate cost per traveler (avoid division by zero)
+        cost_per_traveler = total_cost / num_travelers if num_travelers > 0 else 0
+
+        print(f"\nTrip: {trip_name}")
+        print(f"Total Cost: ${total_cost}")
+        print(f"Number of Travelers: {num_travelers}")
+        print(f"Number of Trip Legs: {num_legs}")
+        print(f"Cost per Traveler: ${cost_per_traveler:.2f}")
+        print("-" * 30)
+
+    # Analyze transport modes
+    if trip_legs:
+        transport_modes = Counter([leg['transport_mode'] for leg in trip_legs])
+
+        print("\nTransport Mode Usage:")
+        for mode, count in transport_modes.items():
+            print(f"{mode}: {count} times")
+
+        # Create a simple bar chart for transport modes
+        try:
+            plt.figure(figsize=(8, 6))
+            plt.bar(transport_modes.keys(), transport_modes.values())
+            plt.title('Transport Mode Usage')
+            plt.xlabel('Transport Mode')
+            plt.ylabel('Count')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig('transport_modes.png')
+            plt.close()
+            print("Chart saved as 'transport_modes.png'")
+        except Exception as e:
+            print(f"Could not generate chart: {e}")
+            print("Make sure matplotlib is installed or use 'pip install matplotlib'")
+
+
 
