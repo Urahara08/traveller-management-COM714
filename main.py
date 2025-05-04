@@ -6,7 +6,8 @@ import uuid  # For generating unique IDs
 import os  # For clearing the console screen
 import matplotlib.pyplot as plt  # For creating visualizations
 from collections import Counter  # For counting occurrences of items (e.g., transport modes)
-
+import tkinter as tk
+from tkinter import messagebox
 
 
 # Data storage (using simple lists instead of a database)
@@ -27,7 +28,6 @@ users.append({
     "password": "admin123",  # Admin password
     "role": "administrator"  # Role of the user
 })
-
 
 # Helper functions
 def clear_screen():
