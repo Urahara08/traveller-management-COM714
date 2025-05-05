@@ -7,6 +7,7 @@ from main import trips, trip_legs, create_trip_leg
 from main import users, create_user
 from io import StringIO
 from main import generate_financial_report, trips, trip_legs
+from main import reporting_menu, display_main_menu, trip_management_menu
 
 
 # Trip management test
@@ -216,6 +217,7 @@ class TestGenerateFinancialReport(unittest.TestCase):
         trips.clear()
         trip_legs.clear()
 
+#financial report test
     @patch('sys.stdout', new_callable=StringIO)
     def test_generate_financial_report(self, mock_stdout):
         """Test the financial report generation."""
@@ -226,6 +228,7 @@ class TestGenerateFinancialReport(unittest.TestCase):
         self.assertIn("Test Trip: $500", output)
         self.assertIn("Total Revenue: $500", output)
 
+#financial report error handling test
     @patch('sys.stdout', new_callable=StringIO)
     def test_generate_financial_report_no_trips(self, mock_stdout):
         """Test the financial report when no trips exist."""
@@ -235,6 +238,38 @@ class TestGenerateFinancialReport(unittest.TestCase):
 
         # Check if the correct message is displayed
         self.assertIn("No trips found.", output)
+
+#Mneu testing
+class TestMenuFunctions(unittest.TestCase):
+
+#reporting menu
+    @patch('main.get_input', side_effect=["1", "4"])  # Simulate selecting "Financial Report" and then "Back to Main Menu"
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_reporting_menu(self, mock_stdout, mock_input):
+        """Test the reporting menu options."""
+        with patch('main.generate_financial_report') as mock_generate_financial_report:
+            reporting_menu()
+            output = mock_stdout.getvalue()
+            self.assertIn("=== Reporting and Analytics ===", output)
+            self.assertTrue(mock_generate_financial_report.called)
+
+#trip management menu
+    @patch('main.get_input', side_effect=["1", "5"])  # Simulate selecting "Create Trip" and then "Back to Main Menu"
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_trip_management_menu(self, mock_stdout, mock_input):
+        """Test the trip management menu options."""
+        with patch('main.create_trip') as mock_create_trip:
+            trip_management_menu()
+            output = mock_stdout.getvalue()
+            self.assertIn("=== Trip Management ===", output)
+            self.assertTrue(mock_create_trip.called)
+
+    @patch('main.get_input', side_effect=["7", "8"])  # Simulate selecting "Reporting and Analytics" and then "Exit"
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_display_main_menu(self, mock_stdout, mock_input):
+        """Test the main menu options."""
+        with patch('main.reporting_menu') as mock_reporting_menu:
+            display_main_menu()
 
 if __name__ == "__main__":
     unittest.main()
