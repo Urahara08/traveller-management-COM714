@@ -94,7 +94,7 @@ def create_trip():
         "name": get_input("Trip Name: "),  # Name of the trip
         "start_date": get_date_input("Start Date"),  # Start date of the trip
         "duration": get_int_input("Duration (days): "),  # Duration of the trip in days
-        "coordinator": get_input("Trip Coordinator ID: "),  # ID of the trip coordinator
+        "coordinator": get_input("Trip Coordinator: "),  # ID of the trip coordinator
         "contact": get_input("Contact Information: "),  # Contact details for the trip
         "travelers": [],  # List of traveler IDs associated with the trip
         "legs": []  # List of trip leg IDs associated with the trip
